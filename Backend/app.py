@@ -38,16 +38,17 @@ def book():
     barber = request.form['barber']
     service = request.form['service']
     date = request.form['date']
+    time = request.form['time']
 
     conn = get_connection()
     cursor = conn.cursor()
 
     cursor.execute("""
-        INSERT INTO Appointment
-        (CustomerID, BarberID, ServiceID, AppointmentDate)
-        VALUES (?,?,?,?)
-    """,
-    (customer, barber, service, date))
+INSERT INTO Appointment
+(CustomerID, BarberID, ServiceID, AppointmentDate, AppointmentTime)
+VALUES (?,?,?,?,?)
+""",
+(customer, barber, service, date, time))
 
     conn.commit()
     conn.close()
