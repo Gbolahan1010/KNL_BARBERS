@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Appointment</title>
+</head>
+<body>
+    <h1>Book a Barber Appointment</h1>
+
+    <form method="post" action="/book">
+        <label>
+            Customer:
+            <select name="customer" required>
+                {% for row in customers %}
+                <option value="{{ row.CustomerID }}">{{ row.FirstName }} {{ row.LastName }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <br><br>
+        <label>
+            Barber:
+            <select name="barber" required>
+                {% for row in barbers %}
+                <option value="{{ row.BarberID }}">{{ row.FirstName }} {{ row.LastName }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <br><br>
+        <label>
+            Service:
+            <select name="service" required>
+                {% for row in services %}
+                <option value="{{ row.ServiceID }}">{{ row.ServiceName }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <br><br>
+        <label>
+            Date:
+            <input type="date" name="date" required>
+            <input type="time" name="time" required>
+
+        </label>
+        <br><br>
+        <button type="submit">Book Appointment</button>
+    </form>
+
+    <p><a href="/appointments">View Appointments</a></p>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Appointments</title>
+</head>
+<body>
+
+<h1>Appointment List</h1>
+
+<table border="1">
+
+<tr>
+    <th>ID</th>
+    <th>Customer</th>
+    <th>Barber</th>
+    <th>Service</th>
+    <th>Date</th>
+</tr>
+
+{% for row in appointments %}
+
+<tr>
+    <td>{{ row['AppointmentID'] }}</td>
+    <td>{{ row['CustomerName'] }}</td>
+    <td>{{ row['BarberName'] }}</td>
+    <td>{{ row['ServiceName'] }}</td>
+    <td>{{ row['AppointmentDate'] }}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+<a href="/">Back</a>
+
+</body>
+</html>
