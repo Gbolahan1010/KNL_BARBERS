@@ -1,49 +1,61 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Book Appointment</title>
-</head>
-<body>
-    <h1>Book a Barber Appointment</h1>
+<h2>Book a Barber Appointment</h2>
 
-    <form method="post" action="/book">
-        <label>
-            Customer:
-            <select name="customer" required>
-                {% for row in customers %}
-                <option value="{{ row.CustomerID }}">{{ row.FirstName }} {{ row.LastName }}</option>
-                {% endfor %}
-            </select>
-        </label>
-        <br><br>
-        <label>
-            Barber:
-            <select name="barber" required>
-                {% for row in barbers %}
-                <option value="{{ row.BarberID }}">{{ row.FirstName }} {{ row.LastName }}</option>
-                {% endfor %}
-            </select>
-        </label>
-        <br><br>
-        <label>
-            Service:
-            <select name="service" required>
-                {% for row in services %}
-                <option value="{{ row.ServiceID }}">{{ row.ServiceName }}</option>
-                {% endfor %}
-            </select>
-        </label>
-        <br><br>
-        <label>
-            Date:
-            <input type="date" name="date" required>
-            <input type="time" name="time" required>
+<form action="/book" method="POST">
 
-        </label>
-        <br><br>
-        <button type="submit">Book Appointment</button>
-    </form>
+    <!-- CUSTOMER -->
+    <label>Customer:</label>
+    <select name="customer" required>
+        <option value="">Select Customer</option>
+        {% for c in customers %}
+            <option value="{{ c.CustomerID }}">
+                {{ c.FirstName }} {{ c.LastName }}
+            </option>
+        {% endfor %}
+    </select>
 
-    <p><a href="/appointments">View Appointments</a></p>
-</body>
-</html>
+    <br><br>
+
+    <!-- BARBER -->
+    <label>Barber:</label>
+    <select name="barber" required>
+        <option value="">Select Barber</option>
+        {% for b in barbers %}
+            <option value="{{ b.BarberID }}">
+                {{ b.FirstName }} {{ b.LastName }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+
+    <!-- SERVICE -->
+    <label>Service:</label>
+    <select name="service" required>
+        <option value="">Select Service</option>
+        {% for s in services %}
+            <option value="{{ s.ServiceID }}">
+                {{ s.ServiceName }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+
+    <!-- DATE -->
+    <label>Date:</label>
+    <input type="date" name="date" required>
+
+    <br><br>
+
+    <!-- TIME -->
+    <label>Time:</label>
+    <input type="time" name="time" required>
+
+    <br><br>
+
+    <button type="submit">Book Appointment</button>
+</form>
+
+<br>
+
+<a href="/appointments">View Appointments</a>
