@@ -124,30 +124,163 @@ async function loadServices(){
 async function bookAppointment(){
 
 
+    const customer =
+    document.getElementById("customer").value;
+
+
+    const barber =
+    document.getElementById("barber").value;
+
+
+    const service =
+    document.getElementById("service").value;
+
+
+    const date =
+    document.getElementById("date").value;
+
+
+    const time =
+    document.getElementById("time").value;
+
+
+
+    // ==========================
+    // VALIDATION
+    // ==========================
+
+
+    if(
+        customer === "" ||
+        barber === "" ||
+        service === "" ||
+        date === "" ||
+        time === ""
+    ){
+
+        alert(
+        "Please complete all fields before booking"
+        );
+
+        return;
+
+    }
+
+
+
+    // Prevent past dates
+
+    let selectedDate =
+    new Date(date);
+
+
+    let today =
+    new Date();
+
+
+    today.setHours(0,0,0,0);
+
+
+
+    if(selectedDate < today){
+
+
+        alert(
+        "You cannot book an appointment in the past"
+        );
+
+
+        return;
+
+
+    }
+
+
+
+
     const appointment = {
 
 
-        CustomerID:
-        document.getElementById("customer").value,
+        CustomerID: customer,
 
+        BarberID: barber,
 
-        BarberID:
-        document.getElementById("barber").value,
+        ServiceID: service,
 
+        AppointmentDate: date,
 
-        ServiceID:
-        document.getElementById("service").value,
-
-
-        AppointmentDate:
-        document.getElementById("date").value,
-
-
-        AppointmentTime:
-        document.getElementById("time").value
+        AppointmentTime: time
 
 
     };
+
+
+
+
+    try{
+
+
+        const response = await fetch(
+
+            `${API}/appointments`,
+
+            {
+
+
+            method:"POST",
+
+
+            headers:{
+
+                "Content-Type":
+                "application/json"
+
+            },
+
+
+            body:
+            JSON.stringify(appointment)
+
+
+            }
+
+        );
+
+
+
+        const result =
+        await response.json();
+
+
+
+        alert(result.message);
+
+
+
+        loadAppointments();
+
+        loadDashboard();
+
+
+
+    }
+
+
+    catch(error){
+
+
+        console.error(error);
+
+
+        alert(
+        "Unable to create appointment"
+        );
+
+
+    }
+
+
+}
 
 
 

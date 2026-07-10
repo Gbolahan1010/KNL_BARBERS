@@ -116,49 +116,86 @@ def get_appointments():
 
 
 
-
 @app.route("/api/appointments", methods=["POST"])
 def create_appointment():
 
-    data = request.json
+    try:
 
 
-    conn = get_connection()
-
-    cursor = conn.cursor()
+        data = request.json
 
 
-    cursor.execute("""
+
+        if not data:
+
+            return jsonify({
+
+                "message":
+                "No appointment data received"
+
+            }),400
+
+
+
+
+        conn=get_connection()
+
+        cursor=conn.cursor()
+
+
+
+        cursor.execute("""
+
         INSERT INTO Appointment
+
         (
-            CustomerID,
-            BarberID,
-            ServiceID,
-            AppointmentDate,
-            AppointmentTime
+        CustomerID,
+        BarberID,
+        ServiceID,
+        AppointmentDate,
+        AppointmentTime
         )
 
         VALUES (%s,%s,%s,%s,%s)
 
-    """,
-    (
+        """,
+
+        (
+
         data["CustomerID"],
         data["BarberID"],
         data["ServiceID"],
         data["AppointmentDate"],
         data["AppointmentTime"]
-    ))
+
+        ))
 
 
-    conn.commit()
 
-    conn.close()
+        conn.commit()
+
+        conn.close()
 
 
-    return jsonify({
-        "message":"Appointment created"
-    })
 
+        return jsonify({
+
+            "message":
+            "Appointment created successfully"
+
+        }),201
+
+
+
+    except Exception as e:
+
+
+        return jsonify({
+
+            "error":
+            str(e)
+
+        }),500
 
 
 @app.route("/api/appointments/<int:id>", methods=["DELETE"])
