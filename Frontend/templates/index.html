@@ -24,6 +24,39 @@
 
 </header>
 
+<div class="dashboard">
+
+
+<div class="card">
+
+<h3>Total Customers</h3>
+
+<p id="totalCustomers">0</p>
+
+</div>
+
+
+
+<div class="card">
+
+<h3>Total Appointments</h3>
+
+<p id="totalAppointments">0</p>
+
+</div>
+
+
+
+<div class="card">
+
+<h3>Total Services</h3>
+
+<p id="totalServices">0</p>
+
+</div>
+
+
+</div>
 
 
 <div class="container">
@@ -65,10 +98,11 @@
         <input type="time" id="time">
 
 
-        <button onclick="bookAppointment()">
-            Book Appointment
-        </button>
+        <button id="bookingButton" onclick="bookAppointment()">
 
+    Book Appointment
+
+</button>
 
     </section>
 
@@ -80,6 +114,19 @@
 
 
         <h2>Appointments</h2>
+
+
+            <input
+
+            type="text"
+
+            id="search"
+
+            placeholder="Search appointments..."
+
+            onkeyup="searchAppointments()"
+
+            >
 
 
         <table>
@@ -129,3 +176,96 @@
 </body>
 
 </html>
+
+// ===============================
+// LOAD DASHBOARD
+// ===============================
+
+
+async function loadDashboard(){
+
+
+    const response =
+    await fetch(`${API}/dashboard`);
+
+
+
+    const data =
+    await response.json();
+
+
+
+    document.getElementById(
+        "totalCustomers"
+    ).innerHTML =
+    data.customers;
+
+
+
+    document.getElementById(
+        "totalAppointments"
+    ).innerHTML =
+    data.appointments;
+
+
+
+    document.getElementById(
+        "totalServices"
+    ).innerHTML =
+    data.services;
+
+
+}
+
+// ===============================
+// SEARCH APPOINTMENTS
+// ===============================
+
+
+function searchAppointments(){
+
+
+    let input =
+    document.getElementById("search")
+    .value
+    .toLowerCase();
+
+
+
+    let rows =
+    document
+    .querySelectorAll(
+        "#appointmentTable tr"
+    );
+
+
+
+    rows.forEach(row=>{
+
+
+        let text =
+        row.innerText.toLowerCase();
+
+
+
+        if(text.includes(input)){
+
+
+            row.style.display="";
+
+
+        }
+
+        else{
+
+
+            row.style.display="none";
+
+
+        }
+
+
+    });
+
+
+}

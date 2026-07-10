@@ -230,19 +230,33 @@ async function loadAppointments(){
 
         <td>${a.AppointmentTime}</td>
 
-
         <td>
 
-        <button 
-        class="delete-btn"
-        onclick="deleteAppointment(${a.AppointmentID})">
 
-        Delete
+<button
 
-        </button>
+class="edit-btn"
+
+onclick="editAppointment(${a.AppointmentID})">
+
+Edit
+
+</button>
 
 
-        </td>
+
+<button
+
+class="delete-btn"
+
+onclick="deleteAppointment(${a.AppointmentID})">
+
+Delete
+
+</button>
+
+
+</td>
 
 
         </tr>
@@ -291,6 +305,7 @@ async function deleteAppointment(id){
 
 
 
+
 // ===============================
 // START APPLICATION
 // ===============================
@@ -307,5 +322,138 @@ window.onload=function(){
 
     loadAppointments();
 
+    loadDashboard();
+
 
 };
+
+// ===============================
+// EDIT APPOINTMENT
+// ===============================
+
+
+async function editAppointment(id){
+
+
+    const response =
+    await fetch(`${API}/appointments`);
+
+
+    const appointments =
+    await response.json();
+
+
+
+    const appointment =
+    appointments.find(
+        a=>a.AppointmentID===id
+    );
+
+
+
+    document.getElementById("customer").value =
+    appointment.CustomerID;
+
+
+
+    document.getElementById("barber").value =
+    appointment.BarberID;
+
+
+
+    document.getElementById("service").value =
+    appointment.ServiceID;
+
+
+
+    document.getElementById("date").value =
+    appointment.AppointmentDate;
+
+
+
+    document.getElementById("time").value =
+    appointment.AppointmentTime;
+
+
+
+    document.getElementById("bookingButton").innerHTML =
+    "Update Appointment";
+
+
+
+    document.getElementById("bookingButton").onclick =
+    function(){
+
+        updateAppointment(id);
+
+    };
+
+
+}
+
+async function updateAppointment(id){
+
+
+    const appointment={
+
+
+        CustomerID:
+        document.getElementById("customer").value,
+
+
+        BarberID:
+        document.getElementById("barber").value,
+
+
+        ServiceID:
+        document.getElementById("service").value,
+
+
+        AppointmentDate:
+        document.getElementById("date").value,
+
+
+        AppointmentTime:
+        document.getElementById("time").value
+
+
+    };
+
+
+
+    await fetch(
+
+        `${API}/appointments/${id}`,
+
+        {
+
+            method:"PUT",
+
+
+            headers:{
+
+                "Content-Type":
+                "application/json"
+
+            },
+
+
+            body:
+            JSON.stringify(appointment)
+
+        }
+
+    );
+
+
+
+    alert(
+        "Appointment updated successfully"
+    );
+
+
+    loadAppointments();
+
+
+
+}
