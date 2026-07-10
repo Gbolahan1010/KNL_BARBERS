@@ -241,6 +241,61 @@ def update_appointment(id):
 
     })
 
+# ===============================
+# DASHBOARD STATISTICS
+# ===============================
+
+@app.route("/api/dashboard")
+def dashboard():
+
+
+    conn = get_connection()
+
+    cursor = conn.cursor(dictionary=True)
+
+
+    cursor.execute(
+        "SELECT COUNT(*) AS totalCustomers FROM Customer"
+    )
+
+    customers = cursor.fetchone()
+
+
+
+    cursor.execute(
+        "SELECT COUNT(*) AS totalAppointments FROM Appointment"
+    )
+
+    appointments = cursor.fetchone()
+
+
+
+    cursor.execute(
+        "SELECT COUNT(*) AS totalServices FROM Service"
+    )
+
+    services = cursor.fetchone()
+
+
+
+    conn.close()
+
+
+
+    return jsonify({
+
+        "customers":
+        customers["totalCustomers"],
+
+
+        "appointments":
+        appointments["totalAppointments"],
+
+
+        "services":
+        services["totalServices"]
+
+    })
 
 if __name__ == "__main__":
 
