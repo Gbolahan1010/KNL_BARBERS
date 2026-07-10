@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
-from database import get_connection
+from Backend.database import get_connection
 
 app = Flask(
     __name__,
