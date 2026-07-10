@@ -1,7 +1,6 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 from database import get_connection
-
 
 app = Flask(
     __name__,
@@ -9,16 +8,22 @@ app = Flask(
     static_folder="static"
 )
 
+# Enable CORS
+CORS(app)
+
+# ===============================
+# FRONTEND
+# ===============================
 @app.route("/")
 def home():
     return render_template("index.html")
 
-CORS(app)
 
-
-@app.route("/")
-def home():
-
+# ===============================
+# API STATUS
+# ===============================
+@app.route("/api")
+def api_status():
     return jsonify({
         "message": "KNL Barbers API Running"
     })
