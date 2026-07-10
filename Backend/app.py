@@ -4,8 +4,8 @@ from database import get_connection
 
 app = Flask(
     __name__,
-    template_folder="templates",
-    static_folder="static"
+    template_folder="../Frontend",
+    static_folder="../Frontend"
 )
 
 # Enable CORS
