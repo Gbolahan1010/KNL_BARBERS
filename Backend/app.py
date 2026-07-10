@@ -187,6 +187,59 @@ def delete_appointment(id):
         "message":"Appointment deleted"
     })
 
+# ===============================
+# UPDATE APPOINTMENT
+# ===============================
+
+@app.route("/api/appointments/<int:id>", methods=["PUT"])
+def update_appointment(id):
+
+    data = request.json
+
+
+    conn = get_connection()
+
+    cursor = conn.cursor()
+
+
+    cursor.execute("""
+        UPDATE Appointment
+
+        SET
+
+        CustomerID=%s,
+        BarberID=%s,
+        ServiceID=%s,
+        AppointmentDate=%s,
+        AppointmentTime=%s
+
+
+        WHERE AppointmentID=%s
+
+    """,
+
+    (
+
+        data["CustomerID"],
+        data["BarberID"],
+        data["ServiceID"],
+        data["AppointmentDate"],
+        data["AppointmentTime"],
+        id
+
+    ))
+
+
+    conn.commit()
+
+    conn.close()
+
+
+    return jsonify({
+
+        "message":"Appointment updated successfully"
+
+    })
 
 
 if __name__ == "__main__":
