@@ -1,61 +1,131 @@
-<h2>Book a Barber Appointment</h2>
+<!DOCTYPE html>
+<html lang="en">
 
-<form action="/book" method="POST">
+<head>
 
-    <!-- CUSTOMER -->
-    <label>Customer:</label>
-    <select name="customer" required>
-        <option value="">Select Customer</option>
-        {% for c in customers %}
-            <option value="{{ c.CustomerID }}">
-                {{ c.FirstName }} {{ c.LastName }}
-            </option>
-        {% endfor %}
-    </select>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <br><br>
+    <title>KNL Barbers Management System</title>
 
-    <!-- BARBER -->
-    <label>Barber:</label>
-    <select name="barber" required>
-        <option value="">Select Barber</option>
-        {% for b in barbers %}
-            <option value="{{ b.BarberID }}">
-                {{ b.FirstName }} {{ b.LastName }}
-            </option>
-        {% endfor %}
-    </select>
+    <link rel="stylesheet" href="css/style.css">
 
-    <br><br>
+</head>
 
-    <!-- SERVICE -->
-    <label>Service:</label>
-    <select name="service" required>
-        <option value="">Select Service</option>
-        {% for s in services %}
-            <option value="{{ s.ServiceID }}">
-                {{ s.ServiceName }}
-            </option>
-        {% endfor %}
-    </select>
 
-    <br><br>
+<body>
 
-    <!-- DATE -->
-    <label>Date:</label>
-    <input type="date" name="date" required>
 
-    <br><br>
+<header>
 
-    <!-- TIME -->
-    <label>Time:</label>
-    <input type="time" name="time" required>
+    <h1>💈 KNL BARBERS</h1>
 
-    <br><br>
+    <p>Appointment Management System</p>
 
-    <button type="submit">Book Appointment</button>
-</form>
+</header>
 
-<br>
 
-<a href="/appointments">View Appointments</a>
+
+<div class="container">
+
+
+    <section class="booking-card">
+
+        <h2>Book Appointment</h2>
+
+
+        <label>Customer</label>
+
+        <select id="customer">
+
+        </select>
+
+
+        <label>Barber</label>
+
+        <select id="barber">
+
+        </select>
+
+
+        <label>Service</label>
+
+        <select id="service">
+
+        </select>
+
+
+        <label>Date</label>
+
+        <input type="date" id="date">
+
+
+        <label>Time</label>
+
+        <input type="time" id="time">
+
+
+        <button onclick="bookAppointment()">
+            Book Appointment
+        </button>
+
+
+    </section>
+
+
+
+
+
+    <section class="appointment-card">
+
+
+        <h2>Appointments</h2>
+
+
+        <table>
+
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+                    <th>Customer</th>
+                    <th>Barber</th>
+                    <th>Service</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Action</th>
+
+                </tr>
+
+
+            </thead>
+
+
+
+            <tbody id="appointmentTable">
+
+
+            </tbody>
+
+
+
+        </table>
+
+
+
+    </section>
+
+
+
+</div>
+
+
+
+<script src="js/app.js"></script>
+
+
+</body>
+
+</html>

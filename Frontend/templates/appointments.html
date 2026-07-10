@@ -1,21 +1,223 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Appointments</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KNL Barbers | Appointments</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:#f4f4f4;
+        }
+
+        header{
+            background:#111;
+            color:white;
+            padding:20px;
+            text-align:center;
+            box-shadow:0 4px 10px rgba(0,0,0,.3);
+        }
+
+        header h1{
+            color:gold;
+            font-size:36px;
+            margin-bottom:10px;
+        }
+
+        .container{
+            width:90%;
+            max-width:1200px;
+            margin:40px auto;
+        }
+
+        .card{
+
+            background:white;
+            border-radius:12px;
+            padding:30px;
+            box-shadow:0 10px 25px rgba(0,0,0,.15);
+
+        }
+
+        h2{
+            margin-bottom:20px;
+            color:#222;
+        }
+
+        table{
+
+            width:100%;
+            border-collapse:collapse;
+
+        }
+
+        thead{
+
+            background:#111;
+            color:white;
+
+        }
+
+        th{
+
+            padding:15px;
+            text-align:left;
+
+        }
+
+        td{
+
+            padding:15px;
+            border-bottom:1px solid #ddd;
+
+        }
+
+        tr:nth-child(even){
+
+            background:#fafafa;
+
+        }
+
+        tr:hover{
+
+            background:#fff8dc;
+            transition:.3s;
+
+        }
+
+        .back-btn{
+
+            display:inline-block;
+            margin-top:25px;
+            text-decoration:none;
+            background:gold;
+            color:black;
+            padding:12px 25px;
+            border-radius:8px;
+            font-weight:bold;
+            transition:.3s;
+
+        }
+
+        .back-btn:hover{
+
+            background:#111;
+            color:white;
+
+        }
+
+        footer{
+
+            margin-top:50px;
+            text-align:center;
+            padding:20px;
+            background:#111;
+            color:white;
+
+        }
+
+        @media(max-width:768px){
+
+            table{
+
+                font-size:13px;
+
+            }
+
+            th,td{
+
+                padding:10px;
+
+            }
+
+            header h1{
+
+                font-size:28px;
+
+            }
+
+        }
+        .edit-btn{
+
+    background:#007bff;
+    color:white;
+    padding:8px 15px;
+    border-radius:5px;
+    text-decoration:none;
+    margin-right:5px;
+
+}
+
+.edit-btn:hover{
+
+    background:#0056b3;
+
+}
+
+.delete-btn{
+
+    background:#dc3545;
+    color:white;
+    padding:8px 15px;
+    border-radius:5px;
+    text-decoration:none;
+
+}
+
+.delete-btn:hover{
+
+    background:#a71d2a;
+
+}
+
+    </style
+</tr>
+
 </head>
+
 <body>
 
-<h1>Appointment List</h1>
+<header>
 
-<table border="1">
+    <h1>💈 KNL BARBERS</h1>
+
+    <p>Appointment Management System</p>
+
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<h2>Appointment List</h2>
+
+<table>
+
+<thead>
 
 <tr>
+>
+    <tr>
     <th>ID</th>
     <th>Customer</th>
     <th>Barber</th>
     <th>Service</th>
     <th>Date</th>
+    <th>Actions</th>
+
 </tr>
+
+</thead>
+
+<tbody>
 
 {% for row in appointments %}
 
@@ -25,13 +227,35 @@
     <td>{{ row['BarberName'] }}</td>
     <td>{{ row['ServiceName'] }}</td>
     <td>{{ row['AppointmentDate'] }}</td>
+
+    <td>
+        <a href="/edit/{{ row['AppointmentID'] }}" class="edit-btn">Edit</a>
+
+        <a href="/delete/{{ row['AppointmentID'] }}"
+           class="delete-btn"
+           onclick="return confirm('Delete this appointment?')">
+           Delete
+        </a>
+    </td>
 </tr>
 
 {% endfor %}
 
+</tbody>
+
 </table>
 
-<a href="/">Back</a>
+<a href="/" class="back-btn">⬅ Back to Home</a>
+
+</div>
+
+</div>
+
+<footer>
+
+© 2026 KNL Barbers | Information System Project
+
+</footer>
 
 </body>
 </html>
